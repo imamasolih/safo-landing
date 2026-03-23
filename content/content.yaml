@@ -1,0 +1,211 @@
+brand:
+  name: "Safo"
+  descriptor: "Professional aesthetic device portfolio for clinics and advanced aesthetic centers."
+
+header:
+  nav:
+    - { label: "Devices", href: "#devices" }
+    - { label: "Why Safo", href: "#why-safo" }
+    - { label: "Proof", href: "#proof" }
+    - { label: "FAQ", href: "#faq" }
+    - { label: "Contact", href: "#contact" }
+  primary_cta: "Request Portfolio"
+
+hero:
+  eyebrow: "Professional Aesthetic Devices"
+  headline: "Advanced aesthetic devices with proof, usability, and real support."
+  subheadline: "Safo connects clinics and advanced aesthetic practices with a focused portfolio of professional devices for lifting, rejuvenation, pigmentation, and body treatments."
+  audience_line: "For dermatology clinics, plastic surgeons, and advanced beauty centers."
+  proof_chips:
+    - "Professional-use portfolio"
+    - "Treatment-goal navigation"
+    - "Qualified inquiry routing"
+  primary_cta: "Request Portfolio"
+  secondary_cta: "View Devices"
+  visual_caption: "[Use premium device renders or a clean hardware collage. No stock faces.]"
+
+trust_strip:
+  items:
+    - title: "Professional-use only"
+      body: "Built for clinics and advanced aesthetic operators."
+    - title: "Focused portfolio"
+      body: "A smaller shortlist, not a bloated catalog."
+    - title: "Clear next step"
+      body: "One inquiry path for product and market questions."
+    - title: "Market-aware"
+      body: "Country and business type captured early."
+
+devices:
+  kicker: "Portfolio"
+  title: "Explore the portfolio by treatment goal."
+  intro: "Start with the indication. Then move to the right platform."
+  filters:
+    - "Lift & Tighten"
+    - "Rejuvenate & Scar"
+    - "Pigmentation & Light"
+    - "Body Contouring"
+  note_for_build_only: "[Temporary competitor-device placeholders. Replace all names and claims before launch if Safo does not represent them.]"
+  cards:
+    - id: "ultraformer-mpt"
+      filter: "Lift & Tighten"
+      type: "HIFU lifting platform"
+      name: "Ultraformer MPT"
+      summary: "For non-surgical lifting and tightening across face and body."
+      bullets:
+        - "Multiple treatment depths"
+        - "Faster shot delivery"
+        - "Strong fit for lifting-focused practices"
+      cta: "Request Details"
+
+    - id: "volnewmer"
+      filter: "Lift & Tighten"
+      type: "Monopolar RF platform"
+      name: "Volnewmer"
+      summary: "For skin tightening through controlled volumetric heating."
+      bullets:
+        - "Tightening-focused treatment menu"
+        - "Comfortable operator workflow"
+        - "Useful for face-focused rejuvenation"
+      cta: "Request Details"
+
+    - id: "secret-rf"
+      filter: "Rejuvenate & Scar"
+      type: "Fractional RF microneedling"
+      name: "Secret RF"
+      summary: "For acne scar, pores, texture, and skin rejuvenation protocols."
+      bullets:
+        - "Useful across texture-led indications"
+        - "Flexible treatment-depth approach"
+        - "High relevance in rejuvenation menus"
+      cta: "Request Details"
+
+    - id: "veloce"
+      filter: "Pigmentation & Light"
+      type: "Broadband light platform"
+      name: "Veloce"
+      summary: "For pigmentation, tone irregularity, and light-based rejuvenation."
+      bullets:
+        - "Broad indication coverage"
+        - "Fast treatment sessions"
+        - "Good fit for light-based menu expansion"
+      cta: "Request Details"
+
+    - id: "clatuu-alpha"
+      filter: "Body Contouring"
+      type: "Non-invasive body contouring"
+      name: "Clatuu Alpha"
+      summary: "For body contouring and non-surgical fat-reduction offerings."
+      bullets:
+        - "Distinct body-treatment category"
+        - "Non-surgical body offer"
+        - "Adds menu diversification"
+      cta: "Request Details"
+
+why_safo:
+  kicker: "Why Safo"
+  title: "A focused portfolio. A clearer buying path."
+  intro: "Safo is built for serious buyers who want fit, clarity, and useful follow-up."
+  pillars:
+    - title: "Curated portfolio"
+      body: "A smaller shortlist of serious platforms instead of a crowded product wall."
+    - title: "Indication-first guidance"
+      body: "Start with the treatment goal, then narrow to the relevant device."
+    - title: "Professional buyer focus"
+      body: "Built for clinics, doctors, and advanced aesthetic operators, not consumer traffic."
+    - title: "Structured next step"
+      body: "One form, clear qualification, and a relevant commercial follow-up."
+
+proof:
+  kicker: "Proof"
+  title: "Confidence before the conversation."
+  intro: "This section must use real proof. Do not invent claims. If proof is missing, keep the section lean."
+  cards:
+    - title: "[Market availability proof]"
+      body: "[Example: Active commercial coverage across selected EU markets.]"
+    - title: "[Support / training proof]"
+      body: "[Example: Onboarding, guidance, technical support, or training availability.]"
+    - title: "[Professional credibility proof]"
+      body: "[Example: Named clinic reference, practitioner quote, or regulatory note.]"
+  callout_title: "Need product details or availability information?"
+  callout_body: "Use the inquiry form and tell us what you are evaluating."
+  callout_cta: "Go to Contact Form"
+
+faq:
+  kicker: "FAQ"
+  title: "Questions before you inquire?"
+  items:
+    - question: "Who is this portfolio for?"
+      answer: "Safo is focused on professional buyers, including dermatology clinics, plastic surgery practices, aesthetic clinics, and selected advanced beauty centers."
+    - question: "Do you support multiple EU countries?"
+      answer: "Availability and next steps can vary by market. Use the form and tell us where you operate."
+    - question: "How do I choose the right device?"
+      answer: "Start with the treatment goal, not the device name. Tell us what you want to offer and we will point you to the relevant options."
+    - question: "Can I ask about one specific device?"
+      answer: "Yes. Select a device interest or mention the device directly in your message."
+    - question: "What happens after I submit?"
+      answer: "Your inquiry is reviewed and routed to the most relevant next step."
+    - question: "Do you show pricing on this page?"
+      answer: "No. Pricing is not published on this landing page."
+
+contact:
+  kicker: "Contact"
+  title: "Request the portfolio"
+  intro: "Tell us your country, business type, and treatment interest. We will route your inquiry to the right next step."
+  fields:
+    full_name:
+      label: "Full name"
+      placeholder: "Your full name"
+    business_email:
+      label: "Business email"
+      placeholder: "name@clinic.com"
+    clinic_company:
+      label: "Clinic or company"
+      placeholder: "Clinic or company name"
+    country:
+      label: "Country"
+      placeholder: "Select country"
+    business_type:
+      label: "Business type"
+      placeholder: "Select business type"
+      options:
+        - "Dermatology Clinic"
+        - "Plastic Surgery Practice"
+        - "Aesthetic Clinic"
+        - "Beauty Center"
+        - "Distributor / Partner"
+        - "Other"
+    treatment_interest:
+      label: "Treatment or device interest"
+      placeholder: "Select interest"
+      options:
+        - "Lift & Tighten"
+        - "Rejuvenate & Scar"
+        - "Pigmentation & Light"
+        - "Body Contouring"
+        - "General Portfolio Inquiry"
+        - "Specific Device"
+    phone:
+      label: "Phone"
+      placeholder: "Optional"
+      optional: true
+    message:
+      label: "Message"
+      placeholder: "Tell us what you are evaluating."
+    consent:
+      label: "I agree to the privacy policy."
+  submit_cta: "Submit Inquiry"
+  success_message: "Thanks. Your inquiry has been received."
+  error_message: "Something went wrong. Please try again."
+  helper:
+    title: "What happens next"
+    steps:
+      - "We review your inquiry."
+      - "We check fit and market relevance."
+      - "We reply with the next relevant conversation."
+
+footer:
+  descriptor: "Professional aesthetic device portfolio for clinics and advanced aesthetic centers."
+  email: "[sales@safo.com]"
+  address: "[Business address]"
+  privacy_label: "Privacy Policy"
+  note: "For professional use only."

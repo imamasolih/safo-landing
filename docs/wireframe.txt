@@ -1,0 +1,34 @@
+[ Sticky Header: Logo | Devices | Why Safo | Proof | FAQ | Contact | Request Portfolio ]
+
+[ Hero ]
+[ Copy block ........................................ ] [ Device collage / product render ]
+[ Eyebrow ]
+[ H1 ]
+[ Subheadline ]
+[ Audience line ]
+[ Proof chips ]
+[ Primary CTA ] [ Secondary CTA ]
+
+[ Trust Strip ]
+[ Chip ] [ Chip ] [ Chip ] [ Chip ]
+
+[ Portfolio by Treatment Goal ]
+[ Section title ]
+[ Filter chips: Lift & Tighten | Rejuvenate & Scar | Pigmentation & Light | Body Contouring ]
+[ Device Card ] [ Device Card ] [ Device Card ]
+[ Device Card ] [ Device Card ]
+
+[ Why Safo ]
+[ Pillar ] [ Pillar ] [ Pillar ] [ Pillar ]
+
+[ Confidence and Proof ]
+[ Proof Card ] [ Proof Card ] [ Proof Card ]
+[ Callout block with CTA to form ]
+
+[ FAQ + Contact ]
+[ FAQ accordion ..................................... ] [ Form card ]
+                                                     [ What happens next ]
+                                                     [ Submit CTA ]
+
+[ Footer ]
+[ Logo ] [ descriptor ] [ email ] [ privacy ] [ note ]
