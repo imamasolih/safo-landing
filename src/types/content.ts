@@ -122,11 +122,12 @@ export type ContactContent = {
 };
 
 export type FooterContent = {
+  byline: string;
   descriptor: string;
+  phone: string;
   email: string;
   address: string;
-  privacy_label: string;
-  note: string;
+  copyright: string;
 };
 
 export type BrandContent = {

@@ -79,6 +79,17 @@ devices:
         - "High relevance in rejuvenation menus"
       cta: "Request Details"
 
+    - id: "potenza"
+      filter: "Rejuvenate & Scar"
+      type: "RF microneedling platform"
+      name: "Potenza"
+      summary: "For clinics evaluating texture, pores, acne scar, and rejuvenation workflows."
+      bullets:
+        - "Texture-led category coverage"
+        - "Useful in RF microneedling comparisons"
+        - "Relevant for rejuvenation-focused practices"
+      cta: "Request Details"
+
     - id: "veloce"
       filter: "Pigmentation & Light"
       type: "Broadband light platform"
@@ -205,8 +216,9 @@ contact:
       - "We reply with the next relevant conversation."
 
 footer:
+  byline: "Safo | Beauty Solution"
   descriptor: "Professional aesthetic device portfolio for clinics and advanced aesthetic centers."
-  email: "[sales@safo.com]"
-  address: "[Business address]"
-  privacy_label: "Privacy Policy"
-  note: "For professional use only."
+  phone: "+420 222 224 315"
+  email: "sales@hangocare.eu"
+  address: "HanG.O Care s.r.o.\nK Hajum 2606/2b\n15500 Cesko"
+  copyright: "Copyright 2026 Safo. All Rights Reserved."

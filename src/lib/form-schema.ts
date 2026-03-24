@@ -2,12 +2,10 @@ export type InquiryPayload = {
   full_name: string;
   business_email: string;
   clinic_company: string;
-  country: string;
   business_type: string;
   treatment_interest: string;
   phone: string;
   message: string;
-  consent: boolean;
   selected_device: string;
   utm_source: string;
   utm_medium: string;
@@ -22,11 +20,9 @@ export type InquiryErrors = Partial<
     | "full_name"
     | "business_email"
     | "clinic_company"
-    | "country"
     | "business_type"
     | "treatment_interest"
     | "message"
-    | "consent"
     | "form",
     string
   >
@@ -47,15 +43,10 @@ export function createInquiryPayload(source: InquiryInput): InquiryPayload {
     full_name: getStringValue(source.full_name),
     business_email: getStringValue(source.business_email),
     clinic_company: getStringValue(source.clinic_company),
-    country: getStringValue(source.country),
     business_type: getStringValue(source.business_type),
     treatment_interest: getStringValue(source.treatment_interest),
     phone: getStringValue(source.phone),
     message: getStringValue(source.message),
-    consent:
-      source.consent === true ||
-      source.consent === "true" ||
-      source.consent === "on",
     selected_device: getStringValue(source.selected_device),
     utm_source: getStringValue(source.utm_source),
     utm_medium: getStringValue(source.utm_medium),
@@ -83,10 +74,6 @@ export function validateInquiryPayload(payload: InquiryPayload) {
     errors.clinic_company = "Clinic or company is required.";
   }
 
-  if (!payload.country) {
-    errors.country = "Country is required.";
-  }
-
   if (!payload.business_type) {
     errors.business_type = "Business type is required.";
   }
@@ -97,10 +84,6 @@ export function validateInquiryPayload(payload: InquiryPayload) {
 
   if (!payload.message) {
     errors.message = "Tell us what you are evaluating.";
-  }
-
-  if (!payload.consent) {
-    errors.consent = "You must agree to the privacy policy.";
   }
 
   return errors;

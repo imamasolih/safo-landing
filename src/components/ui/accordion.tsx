@@ -15,13 +15,13 @@ export function Accordion({ items }: AccordionProps) {
         >
           <details className="group" open={index === 0}>
             <summary className="list-none px-5 py-5 transition-[background-color] duration-200 hover:bg-white/94 focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-[color:rgba(20,127,146,0.28)] sm:px-6">
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="text-left text-lg font-semibold leading-7 text-[color:var(--color-ink)]">
+              <div className="flex items-center justify-between gap-4">
+                <h3 className="text-left text-lg font-semibold leading-[1.3] text-[color:var(--color-ink)]">
                   {item.question}
                 </h3>
                 <span
                   aria-hidden="true"
-                  className="mt-1 inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[color:var(--color-border)] bg-white text-[color:var(--color-accent-strong)]"
+                  className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-[color:var(--color-border)] bg-white text-[color:var(--color-accent-strong)]"
                 >
                   <span className="relative h-3 w-3">
                     <span className="absolute left-0 top-1/2 h-px w-full -translate-y-1/2 bg-current" />

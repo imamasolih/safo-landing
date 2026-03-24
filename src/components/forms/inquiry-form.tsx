@@ -9,11 +9,9 @@ import {
   validateInquiryPayload,
 } from "@/lib/form-schema";
 import {
-  hasExternalInquiryEndpoint,
   submitInquiry,
 } from "@/lib/inquiry-submit";
 import type { ContactContent } from "@/types/content";
-import { ConsentField } from "./consent-field";
 import { SelectField } from "./select-field";
 import { TextField } from "./text-field";
 import { TextareaField } from "./textarea-field";
@@ -179,10 +177,7 @@ export function InquiryForm({ contact, deviceNames }: InquiryFormProps) {
       formData.set(key, value);
     }
 
-    const payload = createInquiryPayload({
-      ...Object.fromEntries(formData.entries()),
-      consent: formData.get("consent") === "on",
-    });
+    const payload = createInquiryPayload(Object.fromEntries(formData.entries()));
     const nextErrors = validateInquiryPayload(payload);
 
     if (Object.keys(nextErrors).length > 0) {
@@ -302,12 +297,11 @@ export function InquiryForm({ contact, deviceNames }: InquiryFormProps) {
             required
           />
           <TextField
-            name="country"
-            label={contact.fields.country.label}
-            placeholder={contact.fields.country.placeholder}
-            autoComplete="country-name"
-            error={errors.country}
-            required
+            name="phone"
+            type="tel"
+            label={contact.fields.phone.label}
+            placeholder={contact.fields.phone.placeholder}
+            autoComplete="tel"
           />
           <SelectField
             name="business_type"
@@ -328,14 +322,6 @@ export function InquiryForm({ contact, deviceNames }: InquiryFormProps) {
           />
         </div>
 
-        <TextField
-          name="phone"
-          type="tel"
-          label={contact.fields.phone.label}
-          placeholder={contact.fields.phone.placeholder}
-          autoComplete="tel"
-        />
-
         <TextareaField
           name="message"
           label={contact.fields.message.label}
@@ -343,8 +329,6 @@ export function InquiryForm({ contact, deviceNames }: InquiryFormProps) {
           error={errors.message}
           required
         />
-
-        <ConsentField label={contact.fields.consent.label} error={errors.consent} />
 
         <input type="hidden" name="selected_device" value={contextFields.selected_device} readOnly />
         <input type="hidden" name="utm_source" value={contextFields.utm_source} readOnly />
@@ -363,17 +347,6 @@ export function InquiryForm({ contact, deviceNames }: InquiryFormProps) {
           value={contextFields.landing_page}
           readOnly
         />
-
-        {!hasExternalInquiryEndpoint ? (
-          <div className="rounded-[1.35rem] border border-[color:rgba(15,29,47,0.08)] bg-[color:var(--color-surface-muted)] px-4 py-4">
-            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-accent-strong)]">
-              Static Frontend Preview
-            </p>
-            <p className="mt-2 text-sm leading-6 text-[color:var(--color-ink-soft)]">
-              {contact.integration_pending_message}
-            </p>
-          </div>
-        ) : null}
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <Button type="submit" disabled={isPending} className="sm:min-w-[13rem]">
