@@ -8,7 +8,6 @@ Need only:
 3. one OG image
 
 Rules:
-- no humans
 - no fake device photos
 - no spa visuals
 - white, navy, graphite, cool gray, one teal/blue accent

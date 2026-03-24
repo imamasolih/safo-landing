@@ -13,10 +13,15 @@ const stickyCtaScript = `
     return;
   }
 
-  let formIsVisible = false;
+  const isTargetVisible = () => {
+    const rect = target.getBoundingClientRect();
+    return rect.top < window.innerHeight && rect.bottom > 0;
+  };
+
+  let formIsVisible = isTargetVisible();
 
   const syncVisibility = () => {
-    container.hidden = formIsVisible || window.location.hash === "#contact";
+    container.hidden = formIsVisible;
   };
 
   if ("IntersectionObserver" in window) {
@@ -34,8 +39,7 @@ const stickyCtaScript = `
     observer.observe(target);
   } else {
     const handleScroll = () => {
-      const rect = target.getBoundingClientRect();
-      formIsVisible = rect.top < window.innerHeight && rect.bottom > 0;
+      formIsVisible = isTargetVisible();
       syncVisibility();
     };
 
@@ -45,7 +49,10 @@ const stickyCtaScript = `
   }
 
   syncVisibility();
-  window.addEventListener("hashchange", syncVisibility);
+  window.addEventListener("hashchange", () => {
+    formIsVisible = isTargetVisible();
+    syncVisibility();
+  });
 })();
 `;
 
