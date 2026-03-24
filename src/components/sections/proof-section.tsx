@@ -20,7 +20,7 @@ export function ProofSection({ proof }: ProofSectionProps) {
         <SectionHeading
           kicker={proof.kicker}
           title={proof.title}
-          intro={proof.intro}
+          intro={cards.length > 0 ? proof.intro : undefined}
         />
 
         {cards.length > 0 ? (
@@ -38,18 +38,21 @@ export function ProofSection({ proof }: ProofSectionProps) {
           </div>
         ) : null}
 
-        <Card className="mt-10 rounded-[2rem] border-[color:rgba(15,29,47,0.08)] bg-[linear-gradient(120deg,rgba(255,255,255,0.94),rgba(232,239,245,0.82))] p-7 sm:p-9">
-          <div className="grid gap-6 lg:grid-cols-[1fr_auto] lg:items-center">
-            <div>
-              <h3 className="font-display text-3xl leading-tight text-[color:var(--color-ink)] sm:text-[2.7rem]">
+        <Card className="mt-8 rounded-[2rem] border-[color:rgba(15,29,47,0.08)] bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(239,244,249,0.92))] p-7 sm:p-8">
+          <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
+            <div className="max-w-2xl">
+              <h3 className="text-2xl font-semibold leading-tight text-[color:var(--color-ink)] sm:text-[2rem]">
                 {proof.callout_title}
               </h3>
-              <p className="mt-4 max-w-2xl text-base leading-8 text-[color:var(--color-ink-soft)]">
+              <p className="mt-4 text-base leading-8 text-[color:var(--color-ink-soft)]">
                 {proof.callout_body}
               </p>
             </div>
 
-            <a href="#contact" className={buttonClassName()}>
+            <a
+              href="#contact"
+              className={buttonClassName({ className: "w-full sm:w-auto" })}
+            >
               {proof.callout_cta}
             </a>
           </div>

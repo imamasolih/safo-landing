@@ -1,5 +1,5 @@
 model = "gpt-5.4"
 model_verbosity = "medium"
 model_reasoning_effort = "xhigh"
-approval_policy = "on-request"
+approval_policy = "never"
 sandbox_mode = "workspace-write"

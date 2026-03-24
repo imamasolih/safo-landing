@@ -63,6 +63,21 @@ export function InquiryForm({
     });
   }, [selectedDevice, trackingFields]);
 
+  function getFirstErrorMessage(
+    nextErrors: InquiryErrors | undefined,
+    fallback: string,
+  ) {
+    if (!nextErrors) {
+      return fallback;
+    }
+
+    const fieldMessage = Object.entries(nextErrors).find(
+      ([field, message]) => field !== "form" && message,
+    )?.[1];
+
+    return fieldMessage ?? nextErrors.form ?? fallback;
+  }
+
   function focusFirstError(nextErrors: InquiryErrors) {
     const firstField = Object.keys(nextErrors).find((field) => field !== "form");
 
@@ -124,7 +139,10 @@ export function InquiryForm({
 
     if (Object.keys(nextErrors).length > 0) {
       setErrors(nextErrors);
-      setStatus({ state: "error", message: contact.error_message });
+      setStatus({
+        state: "error",
+        message: getFirstErrorMessage(nextErrors, contact.error_message),
+      });
       focusFirstError(nextErrors);
       return;
     }
@@ -149,7 +167,10 @@ export function InquiryForm({
         setErrors(result.errors ?? {});
         setStatus({
           state: "error",
-          message: result.message ?? contact.error_message,
+          message: getFirstErrorMessage(
+            result.errors,
+            result.message ?? contact.error_message,
+          ),
         });
         if (result.errors) {
           focusFirstError(result.errors);
@@ -170,7 +191,7 @@ export function InquiryForm({
   }
 
   return (
-    <Card className="rounded-[2rem] p-6 sm:p-8">
+    <Card className="rounded-[2rem] border-[color:rgba(15,29,47,0.08)] bg-white/92 p-6 sm:p-8">
       <p className="medical-kicker">{contact.kicker}</p>
       <h3 className="mt-5 font-display text-3xl leading-tight text-[color:var(--color-ink)] sm:text-[2.6rem]">
         {contact.title}
@@ -180,13 +201,15 @@ export function InquiryForm({
       </p>
 
       {selectedDevice ? (
-        <div className="mt-6 flex flex-wrap items-center gap-3 rounded-[1.5rem] border border-[color:rgba(18,146,163,0.18)] bg-[color:var(--color-accent-soft)] px-4 py-4">
-          <span className="text-sm font-semibold uppercase tracking-[0.14em] text-[color:var(--color-accent-strong)]">
-            Selected device
-          </span>
-          <Chip active className="border-transparent bg-white/85">
-            {selectedDevice}
-          </Chip>
+        <div className="mt-6 rounded-[1.5rem] border border-[color:rgba(20,127,146,0.16)] bg-[color:var(--color-accent-soft)] px-4 py-4">
+          <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-accent-strong)]">
+            {contact.fields.treatment_interest.label}
+          </p>
+          <div className="mt-3">
+            <Chip active className="border-transparent bg-white/88">
+              {selectedDevice}
+            </Chip>
+          </div>
         </div>
       ) : null}
 
@@ -289,15 +312,20 @@ export function InquiryForm({
 
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <Button type="submit" disabled={isPending} className="sm:min-w-[13rem]">
-            {isPending ? "Submitting..." : contact.submit_cta}
+            {isPending ? "Submitting\u2026" : contact.submit_cta}
           </Button>
-          <div aria-live="polite" className="text-sm text-[color:var(--color-ink-soft)]">
+          <div
+            role={status.state === "error" ? "alert" : "status"}
+            aria-live={status.state === "error" ? "assertive" : "polite"}
+            aria-atomic="true"
+            className="min-h-[1.5rem] text-sm text-[color:var(--color-ink-soft)]"
+          >
             {status.message ? (
               <span
                 className={
                   status.state === "success"
                     ? "text-[color:var(--color-accent-strong)]"
-                    : "text-[color:var(--color-ink-soft)]"
+                    : "text-[color:var(--color-ink)]"
                 }
               >
                 {status.message}

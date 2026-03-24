@@ -7,32 +7,44 @@ type StickyMobileCtaProps = {
 const stickyCtaScript = `
 (() => {
   const container = document.getElementById("mobile-sticky-cta");
-  const trigger = document.getElementById("mobile-sticky-cta-trigger");
   const target = document.getElementById("contact");
 
-  if (!container || !trigger || !target) {
+  if (!container || !target) {
     return;
   }
 
+  let formIsVisible = false;
+
   const syncVisibility = () => {
-    const rect = target.getBoundingClientRect();
-    const formIsVisible = rect.top < window.innerHeight && rect.bottom > 0;
     container.hidden = formIsVisible || window.location.hash === "#contact";
   };
 
-  trigger.addEventListener("click", () => {
-    container.hidden = true;
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-    window.history.replaceState(
-      null,
-      "",
-      \`\${window.location.pathname}\${window.location.search}#contact\`,
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        formIsVisible = Boolean(entries[0]?.isIntersecting);
+        syncVisibility();
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -18% 0px",
+      },
     );
-  });
+
+    observer.observe(target);
+  } else {
+    const handleScroll = () => {
+      const rect = target.getBoundingClientRect();
+      formIsVisible = rect.top < window.innerHeight && rect.bottom > 0;
+      syncVisibility();
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+  }
 
   syncVisibility();
-  window.addEventListener("scroll", syncVisibility, { passive: true });
-  window.addEventListener("resize", syncVisibility);
   window.addEventListener("hashchange", syncVisibility);
 })();
 `;
@@ -45,16 +57,16 @@ export function StickyMobileCta({ label }: StickyMobileCtaProps) {
         className="mobile-sticky-cta pointer-events-none fixed inset-x-0 bottom-[calc(1rem+env(safe-area-inset-bottom))] z-40 px-4 lg:hidden"
       >
         <div className="mx-auto max-w-md rounded-full border border-white/65 bg-[rgba(15,29,47,0.9)] p-2 shadow-[var(--shadow-lift)] backdrop-blur">
-          <button
+          <a
             id="mobile-sticky-cta-trigger"
-            type="button"
+            href="#contact"
             className={buttonClassName({
               className:
                 "pointer-events-auto w-full bg-[color:var(--color-accent)] text-white hover:bg-[color:var(--color-accent-strong)]",
             })}
           >
             {label}
-          </button>
+          </a>
         </div>
       </div>
 

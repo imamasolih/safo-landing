@@ -55,7 +55,7 @@ export default async function Home({ searchParams }: PageProps) {
         cta={content.header.primary_cta}
       />
 
-      <main id="main-content" className="overflow-hidden">
+      <main id="main-content" className="overflow-x-hidden">
         <HeroSection
           hero={content.hero}
           brandName={content.brand.name}

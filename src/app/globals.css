@@ -1,21 +1,21 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f2f6fa;
+  --background: #f4f7fb;
   --foreground: #0f1d2f;
   --color-ink: #0f1d2f;
-  --color-ink-soft: #556476;
-  --color-surface: rgba(255, 255, 255, 0.88);
+  --color-ink-soft: #586779;
+  --color-surface: rgba(255, 255, 255, 0.9);
   --color-surface-strong: #ffffff;
-  --color-surface-muted: #e8eff5;
-  --color-border: rgba(15, 29, 47, 0.1);
+  --color-surface-muted: #edf3f8;
+  --color-border: rgba(15, 29, 47, 0.09);
   --color-border-strong: rgba(15, 29, 47, 0.16);
-  --color-accent: #1292a3;
-  --color-accent-strong: #0f7280;
-  --color-accent-soft: rgba(18, 146, 163, 0.12);
+  --color-accent: #147f92;
+  --color-accent-strong: #0d6472;
+  --color-accent-soft: rgba(20, 127, 146, 0.1);
   --color-graphite: #1b2738;
-  --shadow-card: 0 20px 60px rgba(15, 29, 47, 0.08);
-  --shadow-lift: 0 36px 120px rgba(15, 29, 47, 0.14);
+  --shadow-card: 0 24px 60px rgba(15, 29, 47, 0.06);
+  --shadow-lift: 0 40px 110px rgba(15, 29, 47, 0.12);
   --radius-card: 1.75rem;
   --radius-pill: 999px;
   --font-display:
@@ -39,8 +39,9 @@
 
 html {
   background: var(--background);
+  color-scheme: light;
   scroll-behavior: smooth;
-  -webkit-tap-highlight-color: rgba(18, 146, 163, 0.12);
+  -webkit-tap-highlight-color: rgba(20, 127, 146, 0.12);
 }
 
 body {
@@ -48,38 +49,13 @@ body {
   background:
     radial-gradient(
       circle at top left,
-      rgba(18, 146, 163, 0.12),
-      transparent 32%
+      rgba(20, 127, 146, 0.08),
+      transparent 30%
     ),
-    radial-gradient(
-      circle at 85% 10%,
-      rgba(15, 29, 47, 0.08),
-      transparent 26%
-    ),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.92), #eef3f8 100%);
+    linear-gradient(180deg, #f8fbfe 0%, #f3f7fb 40%, #eef3f8 100%);
   color: var(--foreground);
   font-family: var(--font-body);
-}
-
-body::before {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  content: "";
-  background-image:
-    linear-gradient(
-      to right,
-      rgba(15, 29, 47, 0.022) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      to bottom,
-      rgba(15, 29, 47, 0.022) 1px,
-      transparent 1px
-    );
-  background-size: 72px 72px;
-  mask-image: radial-gradient(circle at center, black, transparent 88%);
+  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -100,7 +76,7 @@ summary {
 }
 
 ::selection {
-  background: rgba(18, 146, 163, 0.16);
+  background: rgba(20, 127, 146, 0.16);
   color: var(--foreground);
 }
 
@@ -132,35 +108,53 @@ summary {
     background:
       linear-gradient(
         90deg,
-        rgba(18, 146, 163, 0),
-        rgba(18, 146, 163, 0.72)
+        rgba(20, 127, 146, 0),
+        rgba(20, 127, 146, 0.72)
       );
   }
 
   .field-shell {
     width: 100%;
-    border-radius: 1.1rem;
-    border: 1px solid var(--color-border);
-    background: rgba(255, 255, 255, 0.92);
-    padding: 0.95rem 1rem;
+    border-radius: 1.15rem;
+    border: 1px solid rgba(15, 29, 47, 0.12);
+    background: rgba(255, 255, 255, 0.96);
+    padding: 1rem;
     color: var(--color-ink);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.92),
+      0 1px 2px rgba(15, 29, 47, 0.03);
+  }
+
+  .field-shell:hover {
+    border-color: rgba(15, 29, 47, 0.16);
   }
 
   .field-shell:focus-visible {
-    outline: 2px solid rgba(18, 146, 163, 0.42);
+    outline: 2px solid rgba(20, 127, 146, 0.32);
     outline-offset: 2px;
+  }
+
+  .field-shell::placeholder {
+    color: rgba(88, 103, 121, 0.75);
+  }
+
+  select.field-shell {
+    background-color: rgba(255, 255, 255, 0.96);
+    color: var(--color-ink);
   }
 
   .field-label {
     display: block;
-    font-size: 0.8rem;
+    font-size: 0.76rem;
     font-weight: 700;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--color-ink-soft);
   }
+}
 
+summary::-webkit-details-marker {
+  display: none;
 }
 
 html:has(#contact:target) .mobile-sticky-cta {

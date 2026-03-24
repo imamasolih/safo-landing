@@ -18,10 +18,10 @@ export function HeroSection({
   filters,
 }: HeroSectionProps) {
   return (
-    <section className="relative overflow-hidden pb-18 pt-12 sm:pb-24 sm:pt-16">
-      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[32rem] bg-[radial-gradient(circle_at_top_left,rgba(18,146,163,0.18),transparent_46%),radial-gradient(circle_at_82%_12%,rgba(15,29,47,0.12),transparent_28%)]" />
+    <section className="relative overflow-hidden pb-18 pt-10 sm:pb-24 sm:pt-14">
+      <div className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[30rem] bg-[radial-gradient(circle_at_top_left,rgba(20,127,146,0.12),transparent_40%),radial-gradient(circle_at_84%_12%,rgba(15,29,47,0.09),transparent_26%)]" />
       <Container>
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.04fr)_minmax(0,0.96fr)] lg:items-center">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,0.98fr)] lg:items-center">
           <div className="max-w-2xl">
             <p className="medical-kicker">{hero.eyebrow}</p>
             <h1 className="mt-6 font-display text-[3.05rem] leading-[0.94] text-[color:var(--color-ink)] sm:text-[4.2rem] lg:text-[5.1rem] [text-wrap:balance]">
@@ -54,56 +54,43 @@ export function HeroSection({
           </div>
 
           <div className="relative mx-auto w-full max-w-[34rem]">
-            <div className="absolute left-10 top-10 h-48 w-48 rounded-full bg-[radial-gradient(circle,rgba(18,146,163,0.18),transparent_70%)] blur-3xl" />
-            <Card className="relative overflow-hidden rounded-[2.2rem] p-5 sm:p-6">
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.72),rgba(232,239,245,0.76))]" />
+            <div className="absolute inset-x-10 top-8 h-36 rounded-full bg-[radial-gradient(circle,rgba(20,127,146,0.14),transparent_70%)] blur-3xl" />
+            <Card className="relative overflow-hidden rounded-[2.3rem] border-[color:rgba(15,29,47,0.08)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(239,244,249,0.88))] p-5 sm:p-6">
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.8),transparent_48%)]" />
               <div className="relative">
                 <div className="flex items-center justify-between">
                   <span className="medical-kicker">{devicesKicker}</span>
-                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[color:var(--color-ink-soft)]">
+                  <span className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink-soft)]">
                     {brandName}
                   </span>
                 </div>
 
-                <div className="mt-6 grid gap-4 sm:grid-cols-[1.15fr_0.85fr]">
-                  <div className="relative min-h-[20rem] rounded-[1.7rem] border border-white/70 bg-[linear-gradient(180deg,#112136,#0d1828_68%,#17273c)] p-5 shadow-[var(--shadow-lift)]">
-                    <div className="absolute inset-x-5 top-5 h-px bg-[linear-gradient(90deg,transparent,rgba(18,146,163,0.9),transparent)]" />
-                    <div className="absolute bottom-5 left-1/2 h-[74%] w-[62%] -translate-x-1/2 rounded-[1.65rem] border border-white/15 bg-[radial-gradient(circle_at_50%_18%,rgba(255,255,255,0.28),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.02))] shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]" />
-                    <div className="absolute bottom-10 left-[18%] h-[48%] w-12 rounded-full border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.18),rgba(255,255,255,0.04))]" />
-                    <div className="absolute bottom-16 right-[16%] h-[34%] w-10 rounded-full border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.16),rgba(255,255,255,0.03))]" />
-                  </div>
-
-                  <div className="space-y-4">
-                    <div className="rounded-[1.45rem] border border-[color:rgba(15,29,47,0.08)] bg-white/86 p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink-soft)]">
-                        Treatment Goals
-                      </p>
-                      <div className="mt-4 flex flex-wrap gap-2">
-                        {filters.map((filter) => (
-                          <Chip
-                            key={filter}
-                            className="border-transparent bg-[color:var(--color-surface-muted)]"
-                          >
-                            {filter}
-                          </Chip>
-                        ))}
-                      </div>
+                <div className="mt-6 rounded-[1.95rem] border border-white/80 bg-[linear-gradient(180deg,#0f1d2f,#13243a_72%,#1b2d43)] p-5 shadow-[var(--shadow-lift)] sm:p-6">
+                  <div className="relative min-h-[22rem] overflow-hidden rounded-[1.65rem] border border-white/10 bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.18),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.08),rgba(255,255,255,0.03))]">
+                    <div className="absolute inset-x-6 top-6 flex items-center justify-between">
+                      <span
+                        aria-hidden="true"
+                        className="h-px w-20 bg-[linear-gradient(90deg,rgba(20,127,146,0),rgba(20,127,146,0.9),rgba(20,127,146,0))]"
+                      />
+                      <span
+                        aria-hidden="true"
+                        className="h-2 w-2 rounded-full bg-[color:var(--color-accent)]"
+                      />
                     </div>
 
-                    <div className="rounded-[1.45rem] border border-[color:rgba(15,29,47,0.08)] bg-[linear-gradient(180deg,rgba(18,146,163,0.09),rgba(255,255,255,0.75))] p-4">
-                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[color:var(--color-accent-strong)]">
-                        Product-Led Navigation
-                      </p>
-                      <div className="mt-4 space-y-3">
-                        {hero.proof_chips.map((item) => (
-                          <div
-                            key={item}
-                            className="rounded-[1rem] border border-white/80 bg-white/78 px-4 py-3 text-sm leading-6 text-[color:var(--color-ink)]"
-                          >
-                            {item}
-                          </div>
-                        ))}
-                      </div>
+                    <div className="absolute left-1/2 top-8 h-[58%] w-[46%] -translate-x-1/2 rounded-[1.8rem] border border-white/12 bg-[radial-gradient(circle_at_50%_14%,rgba(255,255,255,0.28),transparent_22%),linear-gradient(180deg,rgba(255,255,255,0.14),rgba(255,255,255,0.03))] shadow-[inset_0_1px_0_rgba(255,255,255,0.18),0_24px_60px_rgba(7,14,24,0.26)]" />
+                    <div className="absolute bottom-10 left-[15%] h-[42%] w-[18%] rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.18),rgba(255,255,255,0.03))] shadow-[inset_0_1px_0_rgba(255,255,255,0.14)]" />
+                    <div className="absolute bottom-12 right-[14%] h-[34%] w-[14%] rounded-[1.6rem] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.16),rgba(255,255,255,0.03))] shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]" />
+
+                    <div className="absolute inset-x-5 bottom-5 grid gap-2 sm:grid-cols-2">
+                      {filters.map((filter) => (
+                        <Chip
+                          key={filter}
+                          className="justify-center border-white/8 bg-white/10 px-3 text-center text-white/90 hover:border-white/18 hover:bg-white/14 hover:text-white"
+                        >
+                          {filter}
+                        </Chip>
+                      ))}
                     </div>
                   </div>
                 </div>

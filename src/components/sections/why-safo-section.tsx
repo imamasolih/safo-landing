@@ -16,22 +16,29 @@ export function WhySafoSection({ whySafo }: WhySafoSectionProps) {
           title={whySafo.title}
           intro={whySafo.intro}
         />
-        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-          {whySafo.pillars.map((pillar) => (
-            <Card
-              key={pillar.title}
-              className="rounded-[1.7rem] bg-[linear-gradient(180deg,rgba(255,255,255,0.92),rgba(232,239,245,0.84))] p-6"
-            >
-              <div className="h-12 w-12 rounded-2xl bg-[linear-gradient(180deg,rgba(18,146,163,0.16),rgba(18,146,163,0.04))]" />
-              <h3 className="mt-6 text-xl font-semibold text-[color:var(--color-ink)]">
-                {pillar.title}
-              </h3>
-              <p className="mt-4 text-sm leading-7 text-[color:var(--color-ink-soft)]">
-                {pillar.body}
-              </p>
-            </Card>
+        <ol className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {whySafo.pillars.map((pillar, index) => (
+            <li key={pillar.title}>
+              <Card className="h-full rounded-[1.8rem] border-[color:rgba(15,29,47,0.08)] bg-[linear-gradient(180deg,rgba(255,255,255,0.94),rgba(239,244,249,0.88))] p-6">
+                <div className="flex items-center justify-between gap-4">
+                  <span
+                    aria-hidden="true"
+                    className="h-px w-14 bg-[linear-gradient(90deg,rgba(20,127,146,0.9),rgba(20,127,146,0))]"
+                  />
+                  <span className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-[color:var(--color-ink-soft)]">
+                    0{index + 1}
+                  </span>
+                </div>
+                <h3 className="mt-6 text-[1.35rem] font-semibold leading-snug text-[color:var(--color-ink)]">
+                  {pillar.title}
+                </h3>
+                <p className="mt-4 text-sm leading-7 text-[color:var(--color-ink-soft)]">
+                  {pillar.body}
+                </p>
+              </Card>
+            </li>
           ))}
-        </div>
+        </ol>
       </Container>
     </section>
   );
