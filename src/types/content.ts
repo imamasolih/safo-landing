@@ -113,6 +113,7 @@ export type ContactContent = {
   kicker: string;
   title: string;
   intro: string;
+  integration_pending_message: string;
   fields: ContactFields;
   submit_cta: string;
   success_message: string;

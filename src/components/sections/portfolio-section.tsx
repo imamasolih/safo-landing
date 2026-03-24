@@ -1,6 +1,6 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { buttonClassName } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { chipClassName } from "@/components/ui/chip";
@@ -13,9 +13,22 @@ type PortfolioSectionProps = {
 };
 
 export function PortfolioSection({ devices }: PortfolioSectionProps) {
-  const pathname = usePathname();
-  const router = useRouter();
-  const searchParams = useSearchParams();
+  const [currentSearch, setCurrentSearch] = useState("");
+
+  useEffect(() => {
+    function syncFromLocation() {
+      setCurrentSearch(window.location.search);
+    }
+
+    syncFromLocation();
+    window.addEventListener("popstate", syncFromLocation);
+
+    return () => {
+      window.removeEventListener("popstate", syncFromLocation);
+    };
+  }, []);
+
+  const searchParams = new URLSearchParams(currentSearch);
   const requestedFilter = searchParams.get("goal");
   const activeFilter = devices.filters.includes(requestedFilter ?? "")
     ? requestedFilter
@@ -27,7 +40,7 @@ export function PortfolioSection({ devices }: PortfolioSectionProps) {
   function buildDeviceHref(deviceName: string) {
     const params = new URLSearchParams(searchParams.toString());
     params.set("selected_device", deviceName);
-    return `/?${params.toString()}#contact`;
+    return `?${params.toString()}#contact`;
   }
 
   function handleFilterToggle(filter: string) {
@@ -40,9 +53,12 @@ export function PortfolioSection({ devices }: PortfolioSectionProps) {
     }
 
     const nextQuery = params.toString();
-    router.replace(nextQuery ? `${pathname}?${nextQuery}` : pathname, {
-      scroll: false,
-    });
+    const nextUrl = nextQuery
+      ? `${window.location.pathname}?${nextQuery}`
+      : window.location.pathname;
+
+    window.history.replaceState(null, "", nextUrl);
+    setCurrentSearch(window.location.search);
   }
 
   return (

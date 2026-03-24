@@ -9,23 +9,19 @@ import {
   type InquiryErrors,
   validateInquiryPayload,
 } from "@/lib/form-schema";
+import {
+  hasExternalInquiryEndpoint,
+  submitInquiry,
+} from "@/lib/inquiry-submit";
 import type { ContactContent } from "@/types/content";
 import { ConsentField } from "./consent-field";
 import { SelectField } from "./select-field";
 import { TextField } from "./text-field";
 import { TextareaField } from "./textarea-field";
 
-type TrackingFields = {
-  utm_source: string;
-  utm_medium: string;
-  utm_campaign: string;
-  utm_content: string;
-};
-
 type InquiryFormProps = {
   contact: ContactContent;
-  selectedDevice: string;
-  trackingFields: TrackingFields;
+  deviceNames: string[];
 };
 
 type FormStatus =
@@ -34,34 +30,67 @@ type FormStatus =
       message: string;
     }
   | {
-      state: "success" | "error";
+      state: "notice" | "success" | "error";
       message: string;
     };
 
-export function InquiryForm({
-  contact,
-  selectedDevice,
-  trackingFields,
-}: InquiryFormProps) {
+export function InquiryForm({ contact, deviceNames }: InquiryFormProps) {
   const formRef = useRef<HTMLFormElement>(null);
+  const [selectedDevice, setSelectedDevice] = useState("");
   const [errors, setErrors] = useState<InquiryErrors>({});
   const [isPending, setIsPending] = useState(false);
   const [status, setStatus] = useState<FormStatus>({ state: "idle", message: "" });
   const [contextFields, setContextFields] = useState({
-    selected_device: selectedDevice,
-    ...trackingFields,
+    selected_device: "",
+    utm_source: "",
+    utm_medium: "",
+    utm_campaign: "",
+    utm_content: "",
     referrer: "",
     landing_page: "/",
   });
 
   useEffect(() => {
-    setContextFields({
-      selected_device: selectedDevice,
-      ...trackingFields,
-      referrer: document.referrer,
-      landing_page: `${window.location.pathname}${window.location.search}`,
-    });
-  }, [selectedDevice, trackingFields]);
+    function syncFromLocation() {
+      const params = new URLSearchParams(window.location.search);
+      const rawSelectedDevice = params.get("selected_device");
+      const nextSelectedDevice = deviceNames.includes(rawSelectedDevice ?? "")
+        ? (rawSelectedDevice ?? "")
+        : "";
+
+      setSelectedDevice(nextSelectedDevice);
+      setContextFields({
+        selected_device: nextSelectedDevice,
+        utm_source: params.get("utm_source") ?? "",
+        utm_medium: params.get("utm_medium") ?? "",
+        utm_campaign: params.get("utm_campaign") ?? "",
+        utm_content: params.get("utm_content") ?? "",
+        referrer: document.referrer,
+        landing_page: `${window.location.pathname}${window.location.search}`,
+      });
+    }
+
+    syncFromLocation();
+    window.addEventListener("popstate", syncFromLocation);
+
+    return () => {
+      window.removeEventListener("popstate", syncFromLocation);
+    };
+  }, [deviceNames]);
+
+  useEffect(() => {
+    const treatmentInterestField = formRef.current?.elements.namedItem(
+      "treatment_interest",
+    );
+
+    if (!(treatmentInterestField instanceof HTMLSelectElement)) {
+      return;
+    }
+
+    if (selectedDevice) {
+      treatmentInterestField.value = "Specific Device";
+    }
+  }, [selectedDevice]);
 
   function getFirstErrorMessage(
     nextErrors: InquiryErrors | undefined,
@@ -151,25 +180,19 @@ export function InquiryForm({
     setErrors({});
 
     try {
-      const response = await fetch("/api/inquiry", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
+      const result = await submitInquiry(payload, {
+        success: contact.success_message,
+        error: contact.error_message,
+        integrationPending: contact.integration_pending_message,
       });
-      const result = (await response.json()) as {
-        errors?: InquiryErrors;
-        message?: string;
-      };
 
-      if (!response.ok) {
+      if (result.state === "error") {
         setErrors(result.errors ?? {});
         setStatus({
           state: "error",
           message: getFirstErrorMessage(
             result.errors,
-            result.message ?? contact.error_message,
+            result.message,
           ),
         });
         if (result.errors) {
@@ -178,13 +201,25 @@ export function InquiryForm({
         return;
       }
 
+      if (result.state === "notice") {
+        setStatus(result);
+        return;
+      }
+
       setStatus({
         state: "success",
-        message: result.message ?? contact.success_message,
+        message: result.message,
       });
       formRef.current.reset();
-    } catch {
-      setStatus({ state: "error", message: contact.error_message });
+      if (selectedDevice) {
+        const treatmentInterestField = formRef.current.elements.namedItem(
+          "treatment_interest",
+        );
+
+        if (treatmentInterestField instanceof HTMLSelectElement) {
+          treatmentInterestField.value = "Specific Device";
+        }
+      }
     } finally {
       setIsPending(false);
     }
@@ -270,7 +305,7 @@ export function InquiryForm({
             options={contact.fields.treatment_interest.options ?? []}
             error={errors.treatment_interest}
             required
-            defaultValue={selectedDevice ? "Specific Device" : undefined}
+            defaultValue={selectedDevice ? "Specific Device" : ""}
           />
         </div>
 
@@ -310,6 +345,17 @@ export function InquiryForm({
           readOnly
         />
 
+        {!hasExternalInquiryEndpoint ? (
+          <div className="rounded-[1.35rem] border border-[color:rgba(15,29,47,0.08)] bg-[color:var(--color-surface-muted)] px-4 py-4">
+            <p className="text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-[color:var(--color-accent-strong)]">
+              Static Frontend Preview
+            </p>
+            <p className="mt-2 text-sm leading-6 text-[color:var(--color-ink-soft)]">
+              {contact.integration_pending_message}
+            </p>
+          </div>
+        ) : null}
+
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <Button type="submit" disabled={isPending} className="sm:min-w-[13rem]">
             {isPending ? "Submitting\u2026" : contact.submit_cta}
@@ -325,6 +371,8 @@ export function InquiryForm({
                 className={
                   status.state === "success"
                     ? "text-[color:var(--color-accent-strong)]"
+                    : status.state === "notice"
+                      ? "text-[color:var(--color-ink)]"
                     : "text-[color:var(--color-ink)]"
                 }
               >

@@ -11,32 +11,14 @@ import { StickyMobileCta } from "@/components/ui/sticky-mobile-cta";
 import { getSiteContent } from "@/lib/content";
 import { buildMetadata } from "@/lib/metadata";
 import { buildFaqSchema } from "@/lib/schema";
-import { firstSearchParam } from "@/lib/utils";
-
-type PageProps = {
-  searchParams: Promise<Record<string, string | string[] | undefined>>;
-};
 
 export async function generateMetadata(): Promise<Metadata> {
   const content = await getSiteContent();
   return buildMetadata(content);
 }
 
-export default async function Home({ searchParams }: PageProps) {
+export default async function Home() {
   const content = await getSiteContent();
-  const params = await searchParams;
-  const rawSelectedDevice = firstSearchParam(params.selected_device);
-  const selectedDevice = content.devices.cards.some(
-    (card) => card.name === rawSelectedDevice,
-  )
-    ? rawSelectedDevice
-    : "";
-  const trackingFields = {
-    utm_source: firstSearchParam(params.utm_source),
-    utm_medium: firstSearchParam(params.utm_medium),
-    utm_campaign: firstSearchParam(params.utm_campaign),
-    utm_content: firstSearchParam(params.utm_content),
-  };
   const faqSchema = buildFaqSchema(content);
 
   return (
@@ -69,8 +51,7 @@ export default async function Home({ searchParams }: PageProps) {
         <FaqContactSection
           faq={content.faq}
           contact={content.contact}
-          selectedDevice={selectedDevice}
-          trackingFields={trackingFields}
+          deviceNames={content.devices.cards.map((card) => card.name)}
         />
       </main>
 

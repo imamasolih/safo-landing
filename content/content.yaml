@@ -151,6 +151,7 @@ contact:
   kicker: "Contact"
   title: "Request the portfolio"
   intro: "Tell us your country, business type, and treatment interest. We will route your inquiry to the right next step."
+  integration_pending_message: "This static build keeps the form UI ready, but inquiry delivery is not connected yet. Add an external form service before using it live."
   fields:
     full_name:
       label: "Full name"

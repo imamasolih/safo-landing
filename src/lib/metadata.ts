@@ -25,8 +25,5 @@ export function buildMetadata(content: SiteContent): Metadata {
       title: content.brand.name,
       description: content.brand.descriptor,
     },
-    alternates: {
-      canonical: "/",
-    },
   };
 }

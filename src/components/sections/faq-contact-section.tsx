@@ -8,20 +8,13 @@ import type { ContactContent, FaqContent } from "@/types/content";
 type FaqContactSectionProps = {
   faq: FaqContent;
   contact: ContactContent;
-  selectedDevice: string;
-  trackingFields: {
-    utm_source: string;
-    utm_medium: string;
-    utm_campaign: string;
-    utm_content: string;
-  };
+  deviceNames: string[];
 };
 
 export function FaqContactSection({
   faq,
   contact,
-  selectedDevice,
-  trackingFields,
+  deviceNames,
 }: FaqContactSectionProps) {
   return (
     <section id="faq" className="scroll-mt-28 pb-16">
@@ -35,11 +28,7 @@ export function FaqContactSection({
           </div>
 
           <div id="contact" className="scroll-mt-28 space-y-5">
-            <InquiryForm
-              contact={contact}
-              selectedDevice={selectedDevice}
-              trackingFields={trackingFields}
-            />
+            <InquiryForm contact={contact} deviceNames={deviceNames} />
 
             <Card className="rounded-[1.8rem] p-6 sm:p-7">
               <h3 className="text-lg font-semibold uppercase tracking-[0.12em] text-[color:var(--color-accent-strong)]">
