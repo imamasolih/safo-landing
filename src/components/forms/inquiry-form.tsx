@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Chip } from "@/components/ui/chip";
 import {
   createInquiryPayload,
   type InquiryErrors,
@@ -53,30 +52,50 @@ export function InquiryForm({ contact, deviceNames }: InquiryFormProps) {
   useEffect(() => {
     function syncFromLocation() {
       const params = new URLSearchParams(window.location.search);
-      const rawSelectedDevice = params.get("selected_device");
-      const nextSelectedDevice = deviceNames.includes(rawSelectedDevice ?? "")
-        ? (rawSelectedDevice ?? "")
-        : "";
-
-      setSelectedDevice(nextSelectedDevice);
-      setContextFields({
-        selected_device: nextSelectedDevice,
+      setContextFields((current) => ({
+        ...current,
         utm_source: params.get("utm_source") ?? "",
         utm_medium: params.get("utm_medium") ?? "",
         utm_campaign: params.get("utm_campaign") ?? "",
         utm_content: params.get("utm_content") ?? "",
         referrer: document.referrer,
         landing_page: `${window.location.pathname}${window.location.search}`,
-      });
+      }));
+    }
+
+    function handleSelectedDevice(event: Event) {
+      const customEvent = event as CustomEvent<{ deviceName?: string }>;
+      const nextSelectedDevice = deviceNames.includes(
+        customEvent.detail?.deviceName ?? "",
+      )
+        ? (customEvent.detail?.deviceName ?? "")
+        : "";
+
+      setSelectedDevice(nextSelectedDevice);
     }
 
     syncFromLocation();
     window.addEventListener("popstate", syncFromLocation);
+    window.addEventListener(
+      "safo:selected-device",
+      handleSelectedDevice as EventListener,
+    );
 
     return () => {
       window.removeEventListener("popstate", syncFromLocation);
+      window.removeEventListener(
+        "safo:selected-device",
+        handleSelectedDevice as EventListener,
+      );
     };
   }, [deviceNames]);
+
+  useEffect(() => {
+    setContextFields((current) => ({
+      ...current,
+      selected_device: selectedDevice,
+    }));
+  }, [selectedDevice]);
 
   useEffect(() => {
     const treatmentInterestField = formRef.current?.elements.namedItem(
@@ -236,14 +255,14 @@ export function InquiryForm({ contact, deviceNames }: InquiryFormProps) {
       </p>
 
       {selectedDevice ? (
-        <div className="mt-6 rounded-[1.5rem] border border-[color:rgba(20,127,146,0.16)] bg-[color:var(--color-accent-soft)] px-4 py-4">
+        <div className="mt-6 rounded-[1.5rem] border border-[color:rgba(20,127,146,0.16)] bg-[linear-gradient(180deg,rgba(228,241,247,0.88),rgba(235,246,250,0.68))] px-5 py-5">
           <p className="text-[0.72rem] font-semibold uppercase tracking-[0.14em] text-[color:var(--color-accent-strong)]">
             {contact.fields.treatment_interest.label}
           </p>
           <div className="mt-3">
-            <Chip active className="border-transparent bg-white/88">
+            <span className="inline-flex min-h-10 items-center rounded-full border border-[color:rgba(20,127,146,0.16)] bg-white px-4 py-2 text-[0.95rem] font-semibold leading-none text-[color:var(--color-ink)] shadow-[0_8px_20px_rgba(15,29,47,0.05)]">
               {selectedDevice}
-            </Chip>
+            </span>
           </div>
         </div>
       ) : null}

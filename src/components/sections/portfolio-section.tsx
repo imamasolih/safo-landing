@@ -37,10 +37,12 @@ export function PortfolioSection({ devices }: PortfolioSectionProps) {
     ? devices.cards.filter((card) => card.filter === activeFilter)
     : devices.cards;
 
-  function buildDeviceHref(deviceName: string) {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("selected_device", deviceName);
-    return `?${params.toString()}#contact`;
+  function handleDeviceRequest(deviceName: string) {
+    window.dispatchEvent(
+      new CustomEvent("safo:selected-device", {
+        detail: { deviceName },
+      }),
+    );
   }
 
   function handleFilterToggle(filter: string) {
@@ -79,7 +81,7 @@ export function PortfolioSection({ devices }: PortfolioSectionProps) {
                 <button
                   key={filter}
                   type="button"
-                  className={chipClassName(isActive, "cursor-pointer")}
+                  className={chipClassName(isActive, "cursor-pointer px-5")}
                   aria-pressed={isActive}
                   onClick={() => handleFilterToggle(filter)}
                 >
@@ -125,15 +127,19 @@ export function PortfolioSection({ devices }: PortfolioSectionProps) {
                 ))}
               </ul>
 
-              <a
-                href={buildDeviceHref(card.name)}
-                className={buttonClassName({
-                  variant: "secondary",
-                  className: "mt-8 w-full",
-                })}
-              >
-                {card.cta}
-              </a>
+              <div className="mt-auto pt-7">
+                <a
+                  href="#contact"
+                  onClick={() => handleDeviceRequest(card.name)}
+                  className={buttonClassName({
+                    variant: "secondary",
+                    className:
+                      "min-h-[3.55rem] w-full !border-[color:rgba(20,127,146,0.24)] !bg-[linear-gradient(180deg,rgba(230,242,247,1),rgba(218,234,241,0.98))] px-5 text-[1.05rem] !text-[color:var(--color-accent-strong)] shadow-[0_16px_34px_rgba(15,29,47,0.08)] hover:!border-[color:rgba(20,127,146,0.34)] hover:!bg-[linear-gradient(180deg,rgba(236,246,250,1),rgba(224,239,245,0.98))] hover:!text-[color:var(--color-accent-strong)]",
+                  })}
+                >
+                  {card.cta}
+                </a>
+              </div>
             </Card>
           ))}
         </div>

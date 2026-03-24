@@ -84,12 +84,12 @@ export function HeroSection({
 
                     <div className="absolute inset-x-5 bottom-5 grid gap-2 sm:grid-cols-2">
                       {filters.map((filter) => (
-                        <Chip
+                        <span
                           key={filter}
-                          className="justify-center border-white/8 bg-white/10 px-3 text-center text-white/90 hover:border-white/18 hover:bg-white/14 hover:text-white"
+                          className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/72 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(244,248,252,0.92))] px-3.5 text-center text-[0.68rem] font-semibold uppercase tracking-[0.11em] text-[color:var(--color-graphite)] shadow-[0_10px_24px_rgba(7,14,24,0.16)]"
                         >
                           {filter}
-                        </Chip>
+                        </span>
                       ))}
                     </div>
                   </div>

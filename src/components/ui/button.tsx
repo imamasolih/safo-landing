@@ -14,12 +14,14 @@ export function buttonClassName({
   className?: string;
 } = {}) {
   return cn(
-    "inline-flex touch-manipulation items-center justify-center rounded-full font-semibold uppercase tracking-[0.1em] transition-[background-color,border-color,color,box-shadow,transform] duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:rgba(20,127,146,0.28)] disabled:cursor-not-allowed disabled:opacity-55",
-    size === "sm" ? "min-h-11 px-4 text-[0.72rem]" : "min-h-12 px-6 text-[0.78rem]",
+    "inline-flex min-w-0 touch-manipulation items-center justify-center gap-2 rounded-full whitespace-nowrap font-semibold tracking-[0.04em] transition-[background-color,border-color,color,box-shadow,transform] duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[color:rgba(20,127,146,0.28)] disabled:cursor-not-allowed disabled:opacity-55",
+    size === "sm"
+      ? "min-h-11 px-5 text-[0.79rem] leading-none"
+      : "min-h-[3.15rem] px-6 text-[0.88rem] leading-none",
     variant === "primary" &&
-      "bg-[color:var(--color-graphite)] text-white shadow-[0_18px_50px_rgba(15,29,47,0.14)] hover:-translate-y-px hover:bg-[color:var(--color-ink)]",
+      "border border-transparent bg-[color:var(--color-graphite)] !text-white shadow-[0_18px_44px_rgba(15,29,47,0.18)] hover:-translate-y-px hover:bg-[color:var(--color-ink)] hover:!text-white hover:shadow-[0_22px_50px_rgba(15,29,47,0.22)]",
     variant === "secondary" &&
-      "border border-[color:var(--color-border-strong)] bg-white/82 text-[color:var(--color-ink)] hover:border-[color:rgba(20,127,146,0.32)] hover:bg-white hover:text-[color:var(--color-accent-strong)]",
+      "border border-[color:rgba(15,29,47,0.12)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(246,249,252,0.96))] text-[color:var(--color-ink)] shadow-[inset_0_1px_0_rgba(255,255,255,0.92),0_10px_24px_rgba(15,29,47,0.06)] hover:-translate-y-px hover:border-[color:rgba(20,127,146,0.22)] hover:bg-white hover:text-[color:var(--color-ink)] hover:shadow-[inset_0_1px_0_rgba(255,255,255,0.94),0_16px_32px_rgba(15,29,47,0.08)]",
     variant === "ghost" &&
       "text-[color:var(--color-ink-soft)] hover:text-[color:var(--color-ink)]",
     className,
